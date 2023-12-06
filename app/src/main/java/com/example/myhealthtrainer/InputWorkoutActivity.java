@@ -1,5 +1,7 @@
 package com.example.myhealthtrainer;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,10 +16,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myhealthtrainer.model.workout;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -104,12 +109,20 @@ public class InputWorkoutActivity extends AppCompatActivity {
         workoutMap.put("reps", reps);
 
         Object workoutName;
-        /*db.collection("workout").add({
+        db.collection("workout")
                 .add(workoutMap)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>(){
-
-                }
-        });*/
+                    @Override
+                    public void onSuccess(DocumentReference documentReference){
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NotNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
 
         Toast.makeText(InputWorkoutActivity.this, "Workout saved", Toast.LENGTH_LONG).show();
     }
