@@ -21,6 +21,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".InputWorkoutActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".EnterFoodActivity"
+            android:allowEmbedded="false"/>
+        <activity
+            android:name=".WorkoutHistoryActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

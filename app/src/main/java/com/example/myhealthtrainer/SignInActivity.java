@@ -8,6 +8,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.myhealthtrainer.adapter.FirestoreAdapter;
+import com.example.myhealthtrainer.util.FirebaseUtil;
+import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Collections;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -16,10 +26,20 @@ public class SignInActivity extends AppCompatActivity {
     private Button btnSignIn;
     private Button btnCreateAccount;
 
+    private static final int RC_SIGN_IN = 9001;
+    private FirestoreAdapter mAdapter;
+    private MainActivityViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
+        FirebaseApp.initializeApp(this);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        FirebaseFirestore.setLoggingEnabled(true);
 
         init();
 
@@ -42,10 +62,41 @@ public class SignInActivity extends AppCompatActivity {
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.activity_create_account);
+                startSignIn();
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Start sign in if necessary
+        if (shouldStartSignIn()) {
+            startSignIn();
+            return;
+        }
+
+        // Start listening for Firestore updates
+        if (mAdapter != null) {
+            mAdapter.startListening();
+        }
+    }
+    private boolean shouldStartSignIn() {
+        return (!mViewModel.getIsSigningIn() && FirebaseUtil.getAuth().getCurrentUser() == null);
+    }
+    private void startSignIn() {
+        // Sign in with FirebaseUI
+        Intent intent = FirebaseUtil.getAuthUI()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(Collections.singletonList(
+                        new AuthUI.IdpConfig.EmailBuilder().build()))
+                .setIsSmartLockEnabled(false)
+                .build();
+
+        startActivityForResult(intent, RC_SIGN_IN);
+        mViewModel.setIsSigningIn(true);
     }
 
     private void init()

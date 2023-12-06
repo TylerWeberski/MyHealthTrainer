@@ -13,17 +13,24 @@ import com.google.firebase.firestore.Query;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Collections;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private EditText etEmail;
+    private EditText etPassword;
+    private Button btnSignIn;
+    private Button btnCreateAccount;
+
     private static final int RC_SIGN_IN = 9001;
     private FirestoreAdapter mAdapter;
     private MainActivityViewModel mViewModel;
-    private FirebaseFirestore mFirestore;
-    private Query mQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +41,33 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-
         FirebaseFirestore.setLoggingEnabled(true);
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAdapter != null) {
-            mAdapter.stopListening();
-        }
+        init();
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Create sign in checks, this is a template to get the app working
+
+                if ( !(etEmail.getText().toString().isEmpty()) && !(etPassword.getText().toString().isEmpty()))
+                {
+                    startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Not enough Information", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSignIn();
+            }
+        });
+
     }
 
     @Override
@@ -75,5 +99,13 @@ public class MainActivity extends AppCompatActivity {
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);
+    }
+
+    private void init()
+    {
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnSignIn = findViewById(R.id.btnSignIn);
+        btnCreateAccount = findViewById(R.id.btnCreateAccount);
     }
 }

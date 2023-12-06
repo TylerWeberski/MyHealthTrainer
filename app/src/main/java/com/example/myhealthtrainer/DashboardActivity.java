@@ -30,7 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
         foodButton = findViewById(R.id.foodButton);
         macrosButton = findViewById(R.id.macrosButton);
 
-       /** workoutTracker.setOnClickListener(v -> {
+       workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, InputWorkoutActivity.class));
         });
@@ -41,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
         macrosButton.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to Macros", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, MacrosActivity.class));
-        });**/
+        });
     }
 
 
