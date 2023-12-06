@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "768235784441",
+    "project_id": "project-ce085",
+    "storage_bucket": "project-ce085.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768235784441:android:8eec1df0947d755797fa28",
+        "android_client_info": {
+          "package_name": "com.example.myhealthtrainer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQqmaJanUH2sUdQKPaSrc-0Wr0eo1A9k8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
