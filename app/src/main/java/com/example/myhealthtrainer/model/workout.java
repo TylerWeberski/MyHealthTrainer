@@ -9,16 +9,16 @@ public class workout {
     private String userId;
     private String userName;
     private String workoutName;
-    private int weight;
-    private int reps;
-    private int sets;
-    public workout(FirebaseUser user, String workoutName, int weight, int reps, int set){
-        this.userId = user.getUid();
+    private String weight;
+    private String reps;
+    private String sets;
+    public workout(/*FirebaseUser user,*/ String workoutName, String weight, String reps, String set){
+        /*this.userId = user.getUid();
         this.userName = user.getDisplayName();
 
         if (TextUtils.isEmpty(this.userName)) {
             this.userName = user.getEmail();
-        }
+        }*/
         this.workoutName = workoutName;
         this.weight = weight;
         this.reps = reps;
@@ -49,27 +49,27 @@ public class workout {
         this.workoutName = workoutName;
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
-    public int getReps() {
+    public String getReps() {
         return reps;
     }
 
-    public void setReps(int reps) {
+    public void setReps(String reps) {
         this.reps = reps;
     }
 
-    public int getSets() {
+    public String getSets() {
         return sets;
     }
 
-    public void setSets(int sets) {
+    public void setSets(String sets) {
         this.sets = sets;
     }
 }

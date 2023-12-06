@@ -33,6 +33,9 @@
         <activity
             android:name=".WorkoutHistoryActivity"
             android:exported="false"/>
+        <activity
+            android:name=".MacrosActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

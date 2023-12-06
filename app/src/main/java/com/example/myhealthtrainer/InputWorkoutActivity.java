@@ -13,14 +13,23 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myhealthtrainer.model.workout;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 // InputWorkoutActivity.java
 public class InputWorkoutActivity extends AppCompatActivity {
 
+    private FirebaseFirestore db;
     private EditText editTextSets, editTextReps, editTextWeight, editTextWorkout;
     private String workoutDate;
 
@@ -34,6 +43,8 @@ public class InputWorkoutActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View childView = inflater.inflate(R.layout.activity_input_workout, frameLayout, false);
         frameLayout.addView(childView);
+
+        db = FirebaseFirestore.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         workoutDate = sdf.format(new Date());
@@ -64,7 +75,7 @@ public class InputWorkoutActivity extends AppCompatActivity {
 
     private void saveWorkout() {
         // Retrieve input values
-        String sets = editTextSets.getText().toString();
+       /* String sets = editTextSets.getText().toString();
         String reps = editTextReps.getText().toString();
         String weight = editTextWeight.getText().toString();
         String workout = editTextWorkout.getText().toString();
@@ -78,7 +89,29 @@ public class InputWorkoutActivity extends AppCompatActivity {
         Toast.makeText(InputWorkoutActivity.this, "Workouts saved", Toast.LENGTH_LONG).show();
 
         // End the current activity and return to the previous activity (dashboard)
-        finish();
+        finish();*/
+        String sets = editTextSets.getText().toString();
+        String reps = editTextReps.getText().toString();
+        String weight = editTextWeight.getText().toString();
+        String workout = editTextWorkout.getText().toString();
+
+        workout newWorkout = new workout(workout, weight, reps, sets);
+
+        Map<String, Object> workoutMap = new HashMap<>();
+        workoutMap.put("workoutName", workout);
+        workoutMap.put("weight", weight);
+        workoutMap.put("sets", sets);
+        workoutMap.put("reps", reps);
+
+        Object workoutName;
+        /*db.collection("workout").add({
+                .add(workoutMap)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>(){
+
+                }
+        });*/
+
+        Toast.makeText(InputWorkoutActivity.this, "Workout saved", Toast.LENGTH_LONG).show();
     }
 
     private void saveToSharedPreferences(String date, String data) {
