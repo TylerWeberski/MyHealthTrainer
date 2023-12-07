@@ -100,31 +100,43 @@ public class InputWorkoutActivity extends AppCompatActivity {
         String weight = editTextWeight.getText().toString();
         String workout = editTextWorkout.getText().toString();
 
-        workout newWorkout = new workout(workout, weight, reps, sets);
+        if (!(sets.matches("[0-9]+") || reps.matches("[0-9]+") || weight.matches("[0-9]+"))){
 
-        Map<String, Object> workoutMap = new HashMap<>();
-        workoutMap.put("workoutName", workout);
-        workoutMap.put("weight", weight);
-        workoutMap.put("sets", sets);
-        workoutMap.put("reps", reps);
+            Toast.makeText(InputWorkoutActivity.this, "Sets,Weight,Reps must be only numbers", Toast.LENGTH_LONG).show();
 
-        Object workoutName;
-        db.collection("workout")
-                .add(workoutMap)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>(){
-                    @Override
-                    public void onSuccess(DocumentReference documentReference){
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NotNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+        } else if (!(sets.isEmpty() || reps.isEmpty() || weight.isEmpty() || workout.isEmpty())) {
 
-        Toast.makeText(InputWorkoutActivity.this, "Workout saved", Toast.LENGTH_LONG).show();
+            workout newWorkout = new workout(workout, weight, reps, sets);
+
+            Map<String, Object> workoutMap = new HashMap<>();
+            workoutMap.put("workoutName", workout);
+            workoutMap.put("weight", weight);
+            workoutMap.put("sets", sets);
+            workoutMap.put("reps", reps);
+
+            Object workoutName;
+            db.collection("workout")
+                    .add(workoutMap)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NotNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
+
+            Toast.makeText(InputWorkoutActivity.this, "Workout saved", Toast.LENGTH_LONG).show();
+            editTextSets.setText("");
+            editTextReps.setText("");
+            editTextWorkout.setText("");
+            editTextWeight.setText("");
+
+        } else { Toast.makeText(InputWorkoutActivity.this, "Please do not leave a section empty", Toast.LENGTH_LONG).show(); }
     }
 
     private void saveToSharedPreferences(String date, String data) {

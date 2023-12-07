@@ -12,7 +12,7 @@ public class workout {
     private String weight;
     private String reps;
     private String sets;
-    public workout(/*FirebaseUser user,*/ String workoutName, String weight, String reps, String set){
+    public workout(/*FirebaseUser user,*/ String workoutName, String weight, String reps, String sets){
         /*this.userId = user.getUid();
         this.userName = user.getDisplayName();
 
