@@ -16,14 +16,20 @@ import com.example.myhealthtrainer.util.FirebaseUtil;
 import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private FirestoreAdapter mAdapter;
     private MainActivityViewModel mViewModel;
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
+    public FirebaseUser user;
+    public FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
 
         FirebaseApp.initializeApp(this);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance(); //db
+        mAuth = FirebaseAuth.getInstance(); //authenticate
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         FirebaseFirestore.setLoggingEnabled(true);
 
@@ -87,10 +95,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+
                             if (user != null) {
                                 // User is signed in and email is verified
                                 Toast.makeText(MainActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                                MainActivityViewModel.setUser(user);
+                                setUserDocument();
                                 startActivity(new Intent(MainActivity.this, DashboardActivity.class));
 
                             } else {
@@ -137,6 +148,51 @@ public class MainActivity extends AppCompatActivity {
         mViewModel.setIsSigningIn(true);
     }
 
+    private void setUserDocument()
+    {
+        DocumentReference userRef = db.collection("users").document(user.getUid());
+
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if ( !(documentSnapshot.exists()) )
+                {
+                    Map<String, Object> userData = new HashMap<>();
+                    userData.put("email", user.getEmail());
+                    userData.put("currentCalories", 0);  // Set initial values
+                    userData.put("goalCalories", 0);
+                    userData.put("currentFat", 0);
+                    userData.put("goalFat", 0);
+                    userData.put("currentSodium", 0);
+                    userData.put("goalSodium", 0);
+                    userData.put("currentCarbs", 0);
+                    userData.put("goalCarbs", 0);
+                    userData.put("currentSugar", 0);
+                    userData.put("goalSugar", 0);
+                    userData.put("currentProtein", 0);
+                    userData.put("goalProtein", 0);
+
+                    userRef.set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(MainActivity.this, "User data added", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(MainActivity.this, "FAILURE ON DATA SET", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+                else
+                {
+
+                }
+            }
+        });
+
+    }
     private void init()
     {
         etEmail = findViewById(R.id.etEmail);
