@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private FirestoreAdapter mAdapter;
     private MainActivityViewModel mViewModel;
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
+    public FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+                            MainActivityViewModel.setUser(user);
+
+
                             if (user != null) {
                                 // User is signed in and email is verified
                                 Toast.makeText(MainActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();

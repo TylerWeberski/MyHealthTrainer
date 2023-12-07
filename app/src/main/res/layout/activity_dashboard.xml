@@ -51,5 +51,16 @@
             app:layout_constraintStart_toEndOf="@+id/foodButton"
             app:layout_constraintTop_toBottomOf="@+id/workoutButton" />
 
+        <ImageButton
+            android:id="@+id/btnDeleteAccount"
+            android:layout_width="65dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_delete" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
