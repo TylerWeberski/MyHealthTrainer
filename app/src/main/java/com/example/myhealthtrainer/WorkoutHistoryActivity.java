@@ -1,56 +1,70 @@
 package com.example.myhealthtrainer;
-
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Map;
+import com.example.myhealthtrainer.adapter.WorkoutAdapter;
+import com.example.myhealthtrainer.model.workout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkoutHistoryActivity extends AppCompatActivity {
 
-    private TableLayout tableLayout;
+    private RecyclerView recyclerView;
+    private WorkoutAdapter workoutAdapter;
+    private List<workout> workoutList;
+
+    private FirebaseFirestore firestore;
+    private CollectionReference workoutCollection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_history);
 
-        tableLayout = findViewById(R.id.tableLayout);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Load and display workout history
-        displayWorkoutHistory();
+        workoutList = new ArrayList<>();
+        workoutAdapter = new WorkoutAdapter(this, workoutList);
+        recyclerView.setAdapter(workoutAdapter);
+
+        firestore = FirebaseFirestore.getInstance();
+        workoutCollection = firestore.collection("workout");
+
+        loadDataFromFirestore();
     }
 
-    private void displayWorkoutHistory() {
-        // Retrieve workout history from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("WorkoutPrefs", MODE_PRIVATE);
-        Map<String, ?> allEntries = sharedPreferences.getAll();
+    private void loadDataFromFirestore() {
+        workoutCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String exercise = document.getString("workoutName");
+                        String sets = document.getString("sets");
+                        String reps = document.getString("reps");
+                        String weight = document.getString("weight");
 
-        // Iterate through the entries and populate the table
-        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            String workoutDate = entry.getKey();
-            String workoutData = entry.getValue().toString();
-
-            // Create a new row
-            TableRow row = new TableRow(this);
-
-            // Create date and data TextViews
-            TextView dateTextView = new TextView(this);
-            dateTextView.setText(workoutDate);
-
-            TextView dataTextView = new TextView(this);
-            dataTextView.setText(workoutData);
-
-            // Add TextViews to the row
-            row.addView(dateTextView);
-            row.addView(dataTextView);
-
-            // Add the row to the table
-            tableLayout.addView(row);
-        }
+                        workout Workout = new workout(exercise, weight, reps, sets);
+                        workoutList.add(Workout);
+                    }
+                    workoutAdapter.notifyDataSetChanged();
+                } else {
+                    // Handle errors
+                }
+            }
+        });
     }
 }

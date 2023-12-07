@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                             if (user != null) {
                                 // User is signed in and email is verified
                                 Toast.makeText(MainActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
-                                setContentView(R.layout.activity_dashboard);
+                                startActivity(new Intent(MainActivity.this, DashboardActivity.class));
 
                             } else {
                                 // Email not verified or user not signed in
