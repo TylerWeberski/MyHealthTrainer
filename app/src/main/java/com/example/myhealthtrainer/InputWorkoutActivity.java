@@ -31,7 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 
 
-// InputWorkoutActivity.java
+
 public class InputWorkoutActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
@@ -79,22 +79,7 @@ public class InputWorkoutActivity extends AppCompatActivity {
 
 
     private void saveWorkout() {
-        // Retrieve input values
-       /* String sets = editTextSets.getText().toString();
-        String reps = editTextReps.getText().toString();
-        String weight = editTextWeight.getText().toString();
-        String workout = editTextWorkout.getText().toString();
 
-        // Combine workout data (workout, weight, sets, reps)
-        String workoutData = " Workout: " + workout + ", " + sets + " sets, " + reps + " reps, Weight: " + weight;
-
-        // Save the workout data to SharedPreferences
-        saveToSharedPreferences(workoutDate, workoutData);
-
-        Toast.makeText(InputWorkoutActivity.this, "Workouts saved", Toast.LENGTH_LONG).show();
-
-        // End the current activity and return to the previous activity (dashboard)
-        finish();*/
         String sets = editTextSets.getText().toString();
         String reps = editTextReps.getText().toString();
         String weight = editTextWeight.getText().toString();
@@ -137,17 +122,5 @@ public class InputWorkoutActivity extends AppCompatActivity {
             editTextWeight.setText("");
 
         } else { Toast.makeText(InputWorkoutActivity.this, "Please do not leave a section empty", Toast.LENGTH_LONG).show(); }
-    }
-
-    private void saveToSharedPreferences(String date, String data) {
-        // Save workout data to SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("WorkoutPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        // Save workout data with date as the key
-        editor.putString(date, data);
-
-        // Commit the changes
-        editor.apply();
     }
 }
