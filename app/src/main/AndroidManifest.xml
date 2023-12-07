@@ -36,6 +36,9 @@
         <activity
             android:name=".MacrosActivity"
             android:exported="false"/>
+        <activity android:name=".CalculateRMRActivity"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

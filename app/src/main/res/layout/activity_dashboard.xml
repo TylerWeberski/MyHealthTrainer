@@ -51,6 +51,7 @@
             app:layout_constraintStart_toEndOf="@+id/foodButton"
             app:layout_constraintTop_toBottomOf="@+id/workoutButton" />
 
+
         <ImageButton
             android:id="@+id/btnDeleteAccount"
             android:layout_width="65dp"
@@ -61,6 +62,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_delete" />
+      
+        <Button
+            android:id="@+id/buttonCalculateRMR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Calculate RMR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/workoutButton" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

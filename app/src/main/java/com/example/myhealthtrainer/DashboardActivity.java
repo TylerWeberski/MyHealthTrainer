@@ -20,8 +20,12 @@ public class DashboardActivity extends AppCompatActivity {
     private Button workoutTracker;
     private Button foodButton;
     private Button macrosButton;
+
     private ImageButton btnDeleteAccount;
     private int deleteAccountStatus = 0;
+
+    private Button calculateRMRButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,9 @@ public class DashboardActivity extends AppCompatActivity {
         macrosButton = findViewById(R.id.macrosButton);
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
 
+        calculateRMRButton = findViewById(R.id.buttonCalculateRMR);
+
+
        workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, InputWorkoutActivity.class));
@@ -51,6 +58,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(new Intent(DashboardActivity.this, MacrosActivity.class));
         });
 
+
         btnDeleteAccount.setOnClickListener(v -> {
             showConfirmationDialog();
 
@@ -60,7 +68,12 @@ public class DashboardActivity extends AppCompatActivity {
                 MainActivityViewModel.getUser().delete();
                 Toast.makeText(this, "Deleted user", Toast.LENGTH_LONG).show();
             }
-
+        });
+      
+        calculateRMRButton.setOnClickListener(v -> {
+            Toast.makeText(DashboardActivity.this, "Going to RMR Calculator", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(DashboardActivity.this, CalculateRMRActivity.class));
+          
         });
     }
 
