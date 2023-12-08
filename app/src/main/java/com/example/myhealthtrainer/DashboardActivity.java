@@ -27,10 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
         View childView = inflater.inflate(R.layout.activity_dashboard, frameLayout, false);
         frameLayout.addView(childView);
 
-        workoutTracker = findViewById(R.id.workoutButton);
-        foodButton = findViewById(R.id.foodButton);
-        macrosButton = findViewById(R.id.macrosButton);
-        recipeButton = findViewById(R.id.recipeButton);
+        dashInit();
 
        workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
@@ -48,6 +45,14 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(DashboardActivity.this, "Going to enter Recipe", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, EnterRecipeActivity.class));
         });
+    }
+
+    private void dashInit()
+    {
+        workoutTracker = findViewById(R.id.workoutButton);
+        foodButton = findViewById(R.id.foodButton);
+        macrosButton = findViewById(R.id.macrosButton);
+        recipeButton = findViewById(R.id.recipeButton);
     }
 
 
