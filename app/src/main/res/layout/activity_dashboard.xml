@@ -62,5 +62,28 @@
             app:layout_constraintBottom_toTopOf="@+id/macrosButton"
             app:layout_constraintEnd_toEndOf="parent" />
 
+
+        <ImageButton
+            android:id="@+id/btnDeleteAccount"
+            android:layout_width="65dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_delete" />
+      
+        <Button
+            android:id="@+id/buttonCalculateRMR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Calculate RMR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/workoutButton" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
