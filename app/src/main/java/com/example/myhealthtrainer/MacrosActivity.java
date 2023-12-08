@@ -142,4 +142,8 @@ public class MacrosActivity extends Activity {
         goalProtein.setText("");
     }
 
+    private void setCurrentMacros(){
+
+    }
+
 }

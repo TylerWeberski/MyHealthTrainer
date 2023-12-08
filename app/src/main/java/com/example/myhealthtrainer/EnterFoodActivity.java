@@ -83,6 +83,30 @@ public class EnterFoodActivity extends AppCompatActivity {
         String totalSugar = etTotalSugar.getText().toString().trim();
         String protein = etProtein.getText().toString().trim();
 
+        if (totalCalories.isEmpty()){
+            totalCalories = "0";
+        }
+
+        if (totalFat.isEmpty()){
+            totalFat = "0";
+        }
+
+        if (sodium.isEmpty()){
+            sodium = "0";
+        }
+
+        if (totalCarbs.isEmpty()){
+            totalCarbs = "0";
+        }
+
+        if (totalSugar.isEmpty()){
+            totalSugar = "0";
+        }
+
+        if (protein.isEmpty()){
+            protein = "0";
+        }
+
         food newFood = new food(foodName, Integer.parseInt(totalCalories), Integer.parseInt(totalFat),
                 Integer.parseInt(sodium), Integer.parseInt(totalCarbs),
                 Integer.parseInt(totalSugar), Integer.parseInt(protein));
