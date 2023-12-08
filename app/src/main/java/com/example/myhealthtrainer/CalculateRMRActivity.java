@@ -5,6 +5,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -20,6 +21,7 @@ public class CalculateRMRActivity extends AppCompatActivity {
     private TextView textView;
     private Spinner spinnerActivityLevel;
     private Button buttonCalculateRMR;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

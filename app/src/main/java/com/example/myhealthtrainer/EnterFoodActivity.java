@@ -40,13 +40,13 @@ public class EnterFoodActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        etFoodName = findViewById(R.id.etFoodName);
-        etTotalCalories = findViewById(R.id.etTotalCalories);
-        etTotalFat = findViewById(R.id.etTotalFat);
-        etSodium = findViewById(R.id.etSodium);
-        etTotalCarbs = findViewById(R.id.etTotalCarbs);
-        etTotalSugar = findViewById(R.id.etTotalSugar);
-        etProtein = findViewById(R.id.etProtein);
+        etFoodName = findViewById(R.id.foodName);
+        etTotalCalories = findViewById(R.id.totalCalories);
+        etTotalFat = findViewById(R.id.totalFat);
+        etSodium = findViewById(R.id.totalSodium);
+        etTotalCarbs = findViewById(R.id.totalCarbs);
+        etTotalSugar = findViewById(R.id.totalSugar);
+        etProtein = findViewById(R.id.totalProtein);
         btnSave = findViewById(R.id.btnSave);
         backButton = findViewById(R.id.backButton);
 
