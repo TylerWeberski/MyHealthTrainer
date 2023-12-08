@@ -16,6 +16,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button foodButton;
     private Button macrosButton;
     private Button recipeButton;
+    private Button calculateRMR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class DashboardActivity extends AppCompatActivity {
         foodButton = findViewById(R.id.foodButton);
         macrosButton = findViewById(R.id.macrosButton);
         recipeButton = findViewById(R.id.recipeButton);
+        calculateRMR = findViewById(R.id.buttonCalculateRMR);
+
 
        workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
@@ -48,6 +51,11 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(DashboardActivity.this, "Going to enter Recipe", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, EnterRecipeActivity.class));
         });
+        calculateRMR.setOnClickListener(v ->{
+            Toast.makeText(DashboardActivity.this, "Going to RMR calculator ", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(DashboardActivity.this, CalculateRMRActivity.class));
+        });
+
     }
 
 

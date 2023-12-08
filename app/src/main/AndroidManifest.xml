@@ -42,6 +42,9 @@
         <activity
             android:name=".EnterRecipeFoodActivity"
             android:exported="false"/>
+        <activity
+            android:name=".CalculateRMRActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
