@@ -59,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         foodButton = findViewById(R.id.foodButton);
         macrosButton = findViewById(R.id.macrosButton);
         recipeButton = findViewById(R.id.recipeButton);
+        calculateRMR = findViewById(R.id.buttonCalculateRMR);
     }
 
 
