@@ -15,6 +15,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button workoutTracker;
     private Button foodButton;
     private Button macrosButton;
+    private Button recipeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
         workoutTracker = findViewById(R.id.workoutButton);
         foodButton = findViewById(R.id.foodButton);
         macrosButton = findViewById(R.id.macrosButton);
+        recipeButton = findViewById(R.id.recipeButton);
 
        workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
@@ -41,6 +43,10 @@ public class DashboardActivity extends AppCompatActivity {
         macrosButton.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to Macros", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, MacrosActivity.class));
+        });
+        recipeButton.setOnClickListener(v ->{
+            Toast.makeText(DashboardActivity.this, "Going to enter Recipe", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(DashboardActivity.this, EnterRecipeActivity.class));
         });
     }
 

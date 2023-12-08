@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myhealthtrainer.model.food;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,14 +37,14 @@ public class EnterFoodActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        etFoodName = findViewById(R.id.etFoodName);
-        etTotalCalories = findViewById(R.id.etTotalCalories);
-        etTotalFat = findViewById(R.id.etTotalFat);
-        etSodium = findViewById(R.id.etSodium);
-        etTotalCarbs = findViewById(R.id.etTotalCarbs);
-        etTotalSugar = findViewById(R.id.etTotalSugar);
-        etProtein = findViewById(R.id.etProtein);
-        btnSave = findViewById(R.id.btnSave);
+        etFoodName = findViewById(R.id.foodName);
+        etTotalCalories = findViewById(R.id.totalCalories);
+        etTotalFat = findViewById(R.id.totalFat);
+        etSodium = findViewById(R.id.totalSodium);
+        etTotalCarbs = findViewById(R.id.totalCarbs);
+        etTotalSugar = findViewById(R.id.totalSugar);
+        etProtein = findViewById(R.id.totalProtein);
+        btnSave = findViewById(R.id.addFood);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

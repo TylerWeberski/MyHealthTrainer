@@ -32,7 +32,7 @@ public class MacrosActivity extends AppCompatActivity {
         etProteinLimit = findViewById(R.id.etProteinLimit);
         Button btnSaveLimits = findViewById(R.id.btnSaveLimits);
         tvCurrentMacros = findViewById(R.id.tvCurrentMacros);
-        Button btnSave = findViewById(R.id.btnSave);
+        Button btnSave = findViewById(R.id.addFood);
         Button btnReset = findViewById(R.id.btnReset);
 
         // Placeholder to display stored data (0 for each nutrient initially)
