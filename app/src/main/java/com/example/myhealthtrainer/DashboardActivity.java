@@ -55,7 +55,6 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(DashboardActivity.this, "Going to RMR calculator ", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, CalculateRMRActivity.class));
         });
-
     }
 
 
