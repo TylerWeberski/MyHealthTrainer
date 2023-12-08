@@ -16,6 +16,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button foodButton;
     private Button macrosButton;
     private Button recipeButton;
+    private Button calculateRMR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,11 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(DashboardActivity.this, "Going to enter Recipe", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, EnterRecipeActivity.class));
         });
+        calculateRMR.setOnClickListener(v ->{
+            Toast.makeText(DashboardActivity.this, "Going to RMR calculator ", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(DashboardActivity.this, CalculateRMRActivity.class));
+        });
+
     }
 
     private void dashInit()

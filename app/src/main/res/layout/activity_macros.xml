@@ -1,144 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Left Half: Current Macros -->
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_weight="1">
 
-        <TextView
+        <ImageButton
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Macros"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginBottom="24dp"/>
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:padding="8dp"/>
 
-        <TextView
-            android:id="@+id/tvTotalFatLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Fat Macro (g):"
-            android:textSize="18sp"/>
-
-        <EditText
-            android:id="@+id/etTotalFatLimit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvSodiumLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sodium Macro (mg):"
-            android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/CurrentMacros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Macros"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="8dp"/>
 
-        <EditText
-            android:id="@+id/etSodiumLimit"
+            <TextView
+                android:id="@+id/Calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Calories:"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/CurrCalories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/TotalFat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Fat (g):"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/CurrFat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/Sodium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sodium (mg):"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/CurrSodium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:inputType="numberDecimal"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/TotalCarbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Carbs (g):"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/CurrCarbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/TotalSugar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Sugar (g):"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/CurrSugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/Protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protein (g):"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/CurrProtein"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Reset" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <!-- Right Half: Macro Goals -->
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvTotalCarbsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Carbs Macro (g):"
-            android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/MacroGoals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Macro Goals"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="8dp"/>
 
-        <EditText
-            android:id="@+id/etTotalCarbsLimit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"/>
+            <TextView
+                android:id="@+id/ph1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/tvTotalSugarLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Sugar Macro (g):"
-            android:textSize="18sp"/>
+            <EditText
+                android:id="@+id/GoalCalories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
 
-        <EditText
-            android:id="@+id/etTotalSugarLimit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"/>
+            <TextView
+                android:id="@+id/ph2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/tvFiberLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fiber Macro (g):"
-            android:textSize="18sp"/>
+            <EditText
+                android:id="@+id/GoalFat"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="16dp"
+                android:inputType="numberDecimal"
+                android:padding="16dp" />
 
-        <EditText
-            android:id="@+id/etFiberLimit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"/>
+            <TextView
+                android:id="@+id/ph3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/tvProteinLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Protein Macro (g):"
-            android:textSize="18sp"/>
+            <EditText
+                android:id="@+id/GoalSodium"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
 
-        <EditText
-            android:id="@+id/etProteinLimit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"/>
+            <TextView
+                android:id="@+id/ph4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"/>
 
-        <Button
-            android:id="@+id/btnSaveLimits"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Save Limits"
-            android:layout_marginBottom="16dp"/>
+            <EditText
+                android:id="@+id/GoalCarbs"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
 
-        <TextView
-            android:id="@+id/tvCurrentMacros"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            android:layout_marginTop="24dp"/>
+            <TextView
+                android:id="@+id/ph5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"/>
 
-        <Button
-            android:id="@+id/addFood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Save"
-            android:layout_marginTop="16dp"/>
+            <EditText
+                android:id="@+id/GoalSugar"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
 
-        <Button
-            android:id="@+id/btnReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Reset"
-            android:layout_marginTop="16dp"/>
+            <TextView
+                android:id="@+id/ph6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"/>
 
-    </LinearLayout>
-</FrameLayout>
+            <EditText
+                android:id="@+id/GoalProtein"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:inputType="numberDecimal"
+                android:padding="16dp"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_gravity="center"
+                android:text="Save" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

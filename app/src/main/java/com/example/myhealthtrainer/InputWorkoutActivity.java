@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class InputWorkoutActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private EditText editTextSets, editTextReps, editTextWeight, editTextWorkout;
     private String workoutDate;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,11 @@ public class InputWorkoutActivity extends AppCompatActivity {
         editTextReps = findViewById(R.id.editTextReps);
         editTextWeight = findViewById(R.id.editTextWeight);
         editTextWorkout = findViewById(R.id.editTextWorkout);
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
 
 
         Button buttonSave = findViewById(R.id.buttonSave);
