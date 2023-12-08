@@ -13,6 +13,7 @@ public class EnterRecipeActivity extends AppCompatActivity {
     private Button saveButton;
     private TextView recipeName;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

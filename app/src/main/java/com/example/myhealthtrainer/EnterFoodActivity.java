@@ -1,10 +1,12 @@
 package com.example.myhealthtrainer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ public class EnterFoodActivity extends AppCompatActivity {
     private EditText etFoodName, etTotalCalories, etTotalFat, etSodium, etTotalCarbs, etTotalSugar, etProtein;
     private Button btnSave;
     private FirebaseFirestore db;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +48,31 @@ public class EnterFoodActivity extends AppCompatActivity {
         etTotalSugar = findViewById(R.id.etTotalSugar);
         etProtein = findViewById(R.id.etProtein);
         btnSave = findViewById(R.id.btnSave);
+        backButton = findViewById(R.id.backButton);
+
+
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveFood();
+                validateAndSaveFood();
             }
         });
     }
+    private void validateAndSaveFood() {
+        String foodName = etFoodName.getText().toString().trim();
 
+        if (foodName.isEmpty()) {
+            // Show error message if food name is empty
+            Toast.makeText(EnterFoodActivity.this, "Please enter a food name", Toast.LENGTH_SHORT).show();
+        } else {
+            // Continue with saving food details to Firebase
+            saveFood();
+        }
+    }
     private void saveFood() {
         String foodName = etFoodName.getText().toString().trim();
         String totalCalories = etTotalCalories.getText().toString().trim();
@@ -94,6 +113,7 @@ public class EnterFoodActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void clearFields() {
         // Clear EditText fields after saving
