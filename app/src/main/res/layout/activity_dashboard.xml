@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DashboardActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -25,31 +26,41 @@
             android:id="@+id/workoutButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="25dp"
             android:text="Workout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDashTest" />
+            app:layout_constraintBottom_toTopOf="@+id/foodButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/foodButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="125dp"
             android:text="Enter Food"
-            app:layout_constraintEnd_toStartOf="@+id/macrosButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/workoutButton" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/macrosButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="125dp"
             android:text="Enter Macros"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/foodButton"
-            app:layout_constraintTop_toBottomOf="@+id/workoutButton" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/recipeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="24dp"
+            android:text="Enter Recipe"
+            app:layout_constraintBottom_toTopOf="@+id/macrosButton"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <ImageButton
