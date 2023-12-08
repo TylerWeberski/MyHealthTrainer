@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -17,6 +20,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button macrosButton;
     private Button recipeButton;
     private Button calculateRMR;
+    private TextView txtDashHello;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,11 @@ public class DashboardActivity extends AppCompatActivity {
         macrosButton = findViewById(R.id.macrosButton);
         recipeButton = findViewById(R.id.recipeButton);
         calculateRMR = findViewById(R.id.buttonCalculateRMR);
+        txtDashHello = findViewById(R.id.txtDashGoals);
+
+        txtDashHello.setText(MainActivityViewModel.getUser().getDisplayName().toString().split(" ")[0] + "'s Dashboard");
+
+
     }
 
 
