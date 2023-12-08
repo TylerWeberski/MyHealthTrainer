@@ -11,6 +11,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -39,6 +46,74 @@ public class MacrosActivity extends Activity {
 
         db = FirebaseFirestore.getInstance();
 
+        initMacros();
+
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveGoals();
+            }
+        });
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearFields();
+            }
+        });
+
+    }
+
+    private void saveGoals() {
+        String totalCalories = goalCalories.getText().toString().trim();
+        String totalFat = goalFat.getText().toString().trim();
+        String sodium = goalSodium.getText().toString().trim();
+        String totalCarbs = goalCarbs.getText().toString().trim();
+        String totalSugar = goalSugar.getText().toString().trim();
+        String protein = goalProtein.getText().toString().trim();
+
+        DocumentReference userRef = db.collection("users").document(MainActivityViewModel.getUser().getUid());
+
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("goalCalories", Integer.parseInt(totalCalories));
+        userData.put("goalFat", Integer.parseInt(totalFat));
+        userData.put("goalSodium", Integer.parseInt(sodium));
+        userData.put("goalCarbs", Integer.parseInt(totalCarbs));
+        userData.put("goalSugar", Integer.parseInt(totalSugar));
+        userData.put("goalProtein", Integer.parseInt(protein));
+        userRef.update(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MacrosActivity.this, "Goals Updated!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MacrosActivity.this, "FAILURE ON DATA SET", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        setMacrosDB();
+
+    }
+
+    private void clearFields() {
+        macroGoals.setText("");
+        goalCalories.setText("");
+        goalFat.setText("");
+        goalSodium.setText("");
+        goalCarbs.setText("");
+        goalSugar.setText("");
+        goalProtein.setText("");
+    }
+
+    private void initMacros()
+    {
         // Finding TextViews from the layout
         currentMacros = findViewById(R.id.CurrentMacros);
         calories = findViewById(R.id.Calories);
@@ -74,72 +149,35 @@ public class MacrosActivity extends Activity {
         btnSave = findViewById(R.id.btnSave);
         backButton = findViewById(R.id.backButton);
 
-        backButton.setOnClickListener(v -> {
-            finish();
-        });
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //saveGoals();
-            }
-        });
-
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearFields();
-            }
-        });
-
+        setMacrosDB();
     }
 
-    /*private void saveGoals() {
-        String totalCalories = goalCalories.getText().toString().trim();
-        String totalFat = goalFat.getText().toString().trim();
-        String sodium = goalSodium.getText().toString().trim();
-        String totalCarbs = goalCarbs.getText().toString().trim();
-        String totalSugar = goalSugar.getText().toString().trim();
-        String protein = goalProtein.getText().toString().trim();
+    private void setMacrosDB()
+    {
+        DocumentReference userRef = db.collection("users").document(MainActivityViewModel.getUser().getUid());
 
-        // Replace 'Users' with your actual model class for users
-        Users userGoals = new Users(
-                Integer.parseInt(totalCalories),
-                Integer.parseInt(totalFat),
-                Integer.parseInt(sodium),
-                Integer.parseInt(totalCarbs),
-                Integer.parseInt(totalSugar),
-                Integer.parseInt(protein)
-        );
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if ( documentSnapshot.exists() )
+                {
+                    goalCalories.setText(documentSnapshot.get("goalCalories").toString());
+                    goalCarbs.setText(documentSnapshot.get("goalCarbs").toString());
+                    goalFat.setText(documentSnapshot.get("goalFat").toString());
+                    goalProtein.setText(documentSnapshot.get("goalProtein").toString());
+                    goalSugar.setText(documentSnapshot.get("goalSugar").toString());
+                    goalSodium.setText(documentSnapshot.get("goalSodium").toString());
 
-        Map<String, Object> goalsMap = new HashMap<>();
-        goalsMap.put("goalCalories", Integer.parseInt(totalCalories));
-        goalsMap.put("goalFat", Integer.parseInt(totalFat));
-        goalsMap.put("goalSodium", Integer.parseInt(sodium));
-        goalsMap.put("goalCarbs", Integer.parseInt(totalCarbs));
-        goalsMap.put("goalSugar", Integer.parseInt(totalSugar));
-        goalsMap.put("goalProtein", Integer.parseInt(protein));
+                    currCalories.setText(documentSnapshot.get("currentCalories").toString());
+                    currCarbs.setText(documentSnapshot.get("currentCarbs").toString());
+                    currFat.setText(documentSnapshot.get("currentFat").toString());
+                    currProtein.setText(documentSnapshot.get("currentProtein").toString());
+                    currSodium.setText(documentSnapshot.get("currentSodium").toString());
+                    currSugar.setText(documentSnapshot.get("currentSugar").toString());
+                }
 
-        // Replace 'db' with your Firestore instance
-        db.collection("users")
-                .add(goalsMap)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(MacrosActivity.this, "Goals Saved", Toast.LENGTH_SHORT).show();
-                    // Add any necessary actions after successful save
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(MacrosActivity.this, "Failed to save goals", Toast.LENGTH_SHORT).show();
-                });
-    }*/
-
-    private void clearFields() {
-        macroGoals.setText("");
-        goalCalories.setText("");
-        goalFat.setText("");
-        goalSodium.setText("");
-        goalCarbs.setText("");
-        goalSugar.setText("");
-        goalProtein.setText("");
+            }
+        });
     }
 
 }
