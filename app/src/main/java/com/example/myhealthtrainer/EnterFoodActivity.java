@@ -73,6 +73,7 @@ public class EnterFoodActivity extends AppCompatActivity {
             saveFood();
         }
     }
+  
     private void saveFood() {
         String foodName = etFoodName.getText().toString().trim();
         String totalCalories = etTotalCalories.getText().toString().trim();
