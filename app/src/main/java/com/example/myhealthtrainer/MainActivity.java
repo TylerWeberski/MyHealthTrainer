@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (user != null) {
                                 // User is signed in and email is verified
-                                Toast.makeText(MainActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Sign in successful! Hello, " + user.getDisplayName().toString().split(" ")[0], Toast.LENGTH_SHORT).show();
                                 MainActivityViewModel.setUser(user);
                                 setUserDocument();
                                 startActivity(new Intent(MainActivity.this, DashboardActivity.class));
