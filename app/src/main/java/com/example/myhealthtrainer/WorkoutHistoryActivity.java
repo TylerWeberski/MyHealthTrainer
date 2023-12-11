@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myhealthtrainer.adapter.WorkoutAdapter;
 import com.example.myhealthtrainer.model.workout;
+import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -41,7 +42,7 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
         recyclerView.setAdapter(workoutAdapter);
 
         firestore = FirebaseFirestore.getInstance();
-        workoutCollection = firestore.collection("workout");
+        workoutCollection = firestore.collection("users/" + MainActivityViewModel.getUser().getUid() + "/workouts");
 
         loadDataFromFirestore();
     }
