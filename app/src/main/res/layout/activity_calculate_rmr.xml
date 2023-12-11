@@ -5,13 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".CalculateRMRActivity">
 
-    <!-- Add EditText fields for height, weight, gender, and activity level -->
+    <!-- Back button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_revert"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
+
+    <!-- EditText fields for age, height, weight, gender, activity level -->
 
     <EditText
         android:id="@+id/editTextAge"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/spinnerActivityLevel"
+        android:layout_below="@+id/backButton"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="16dp"
@@ -22,8 +35,10 @@
         android:id="@+id/editTextHeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/editTextAge"
+        android:layout_marginTop="16dp"
         android:hint="Enter Height (cm)"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/editTextWeight"
@@ -69,9 +84,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/spinnerActivityLevel"
-        android:layout_marginTop="102dp"
+        android:layout_marginTop="32dp"
         android:text="Calculate RMR" />
 
+    <!-- Output TextView -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="386dp"
@@ -79,11 +95,9 @@
         android:layout_below="@+id/buttonCalculateRMR"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="164dp"
         android:text="RMR"
         android:textSize="20sp" />
 </RelativeLayout>
