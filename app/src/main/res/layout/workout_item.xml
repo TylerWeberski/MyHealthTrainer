@@ -6,6 +6,12 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/workoutFieldTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WorkoutField" />
+
+    <TextView
         android:id="@+id/exerciseTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,4 +34,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Weight" />
+
+    <TextView
+        android:id="@+id/repGoalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reps Goal Met" />
+
+    <TextView
+        android:id="@+id/setGoalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sets Goal Met" />
 </LinearLayout>

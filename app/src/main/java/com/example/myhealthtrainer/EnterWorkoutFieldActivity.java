@@ -41,6 +41,14 @@ public class EnterWorkoutFieldActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        viewWorkout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(EnterWorkoutFieldActivity.this, WorkoutHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
         saveWorkout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
