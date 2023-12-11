@@ -33,8 +33,9 @@ public class EnterRecipeFoodActivity extends AppCompatActivity {
     private TextView totalProtein;
     private Button addFood;
     private String numFoodsStr;
+    private String recipeName;
     private int i = 0;
-    private String ingredientsList = "Ingredients: + \n";
+    private String ingredientsList = "Ingredients: \n";
     private int numCalories = 0;
     private int numFat = 0;
     private int numSodium = 0;
@@ -66,6 +67,7 @@ public class EnterRecipeFoodActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         numFoodsStr = intent.getStringExtra("numFoodsStr");
+        recipeName = intent.getStringExtra("recipeName");
         addFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,9 +85,16 @@ public class EnterRecipeFoodActivity extends AppCompatActivity {
         String totalProteinStr = totalProtein.getText().toString().trim();
 
         if(i >= Integer.parseInt(numFoodsStr) - 1){
+            ingredientsList = ingredientsList + foodNameStr + "\n";
+            numCalories += Integer.parseInt(totalCaloriesStr);
+            numFat += Integer.parseInt(totalFatStr);
+            numSodium += Integer.parseInt(totalSodiumStr);
+            numCarbs += Integer.parseInt(totalCarbsStr);
+            numSugar += Integer.parseInt(totalSugarStr);
+            numProtein += Integer.parseInt(totalProteinStr);
 
             Map<String, Object> recipeMap = new HashMap<>();
-            //recipeMap.put("recipeName", recipeName);
+            recipeMap.put("recipeName", recipeName);
             recipeMap.put("ingredientsList", ingredientsList);
             recipeMap.put("numCalories", numCalories);
             recipeMap.put("numFat", numFat);
