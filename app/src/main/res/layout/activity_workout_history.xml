@@ -5,8 +5,53 @@
     android:layout_height="match_parent"
     tools:context=".WorkoutHistoryActivity">
 
+    <RadioGroup
+        android:id="@+id/radioGroupField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Push" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pull" />
+        <RadioButton
+            android:id="@+id/radioButtonArms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arms" />
+        <RadioButton
+            android:id="@+id/radioButtonLegs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Legs" />
+        <RadioButton
+            android:id="@+id/radioButtonCore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Core" />
+
+    </RadioGroup>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroupField"
+        android:layout_marginTop="1dp" />
 </RelativeLayout>
