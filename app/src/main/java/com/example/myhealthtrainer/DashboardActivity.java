@@ -103,6 +103,8 @@ public class DashboardActivity extends AppCompatActivity {
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
         txtGoalProgress = findViewById(R.id.txtGoalInfo);
         txtDashHello = findViewById(R.id.txtDashGoals);
+        adviceButton = findViewById(R.id.adviceButton);
+        btnToGraph = findViewById(R.id.btnGraphActivity);
 
         txtDashHello.setText(MainActivityViewModel.getUser().getDisplayName().toString().split(" ")[0] + "'s Dashboard");
 
