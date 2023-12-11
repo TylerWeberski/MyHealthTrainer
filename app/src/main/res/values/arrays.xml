@@ -7,4 +7,12 @@
         <item>Heavy exercise (6-7 days per week)</item>
         <item>Very heavy exercise (twice per day, extra heavy workouts)</item>
     </string-array>
+
+    <string-array name="workout_fields">
+        <item>Push (Chest/Triceps/Front-Delts)</item>
+        <item>Pull (Back/Biceps/Lats/Serratus)</item>
+        <item>Arms (Biceps/Triceps/Forearms/Delts)</item>
+        <item>Legs (Quads/Hams/Calve)</item>
+        <item>Core (Abs/Obliques/Diaphragm)</item>
+    </string-array>
 </resources>

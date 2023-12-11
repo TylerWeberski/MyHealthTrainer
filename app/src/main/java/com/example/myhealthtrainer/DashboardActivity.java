@@ -42,7 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
 
        workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(DashboardActivity.this, InputWorkoutActivity.class));
+            startActivity(new Intent(DashboardActivity.this, EnterWorkoutFieldActivity.class));
         });
         foodButton.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to enter food", Toast.LENGTH_LONG).show();

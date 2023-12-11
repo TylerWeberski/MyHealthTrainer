@@ -52,12 +52,16 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
+                        String workoutField = document.getString("workoutField");
                         String exercise = document.getString("workoutName");
                         String sets = document.getString("sets");
                         String reps = document.getString("reps");
                         String weight = document.getString("weight");
+                        String repGoal = document.getString("repGoal");
+                        String setGoal = document.getString("setGoal");
 
-                        workout Workout = new workout(exercise, weight, reps, sets);
+
+                        workout Workout = new workout(workoutField,exercise, weight, reps, sets, repGoal,setGoal);
                         workoutList.add(Workout);
                     }
                     workoutAdapter.notifyDataSetChanged();

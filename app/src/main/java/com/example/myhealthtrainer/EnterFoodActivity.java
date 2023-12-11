@@ -11,10 +11,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myhealthtrainer.model.food;
+import com.example.myhealthtrainer.model.users;
 import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
@@ -108,10 +110,6 @@ public class EnterFoodActivity extends AppCompatActivity {
             protein = "0";
         }
 
-        food newFood = new food(foodName, Integer.parseInt(totalCalories), Integer.parseInt(totalFat),
-                Integer.parseInt(sodium), Integer.parseInt(totalCarbs),
-                Integer.parseInt(totalSugar), Integer.parseInt(protein));
-
         Map<String, Object> foodMap = new HashMap<>();
         foodMap.put("foodName", foodName);
         foodMap.put("calories", Integer.parseInt(totalCalories));
@@ -121,35 +119,65 @@ public class EnterFoodActivity extends AppCompatActivity {
         foodMap.put("sugar", Integer.parseInt(totalSugar));
         foodMap.put("protein", Integer.parseInt(protein));
 
+
         db.collection("users/" + MainActivityViewModel.getUser().getUid() + "/food")
                 .add(foodMap)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(EnterFoodActivity.this, "Food Details Saved", Toast.LENGTH_SHORT).show();
-                        clearFields(); // Clear fields after successful save
-                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NotNull Exception e) {
                         Toast.makeText(EnterFoodActivity.this, "Failed to save food details", Toast.LENGTH_SHORT).show();
-                        finish();
                     }
                 });
+        saveMacros(totalCalories, totalFat, sodium, totalCarbs, totalSugar, protein);
+        finish();
+
+
     }
 
+    public void saveMacros(String totalCals, String totalFat, String sodium, String totalCarbs, String totalSugar, String protein){
+        DocumentReference userRef = db.collection("users").document(MainActivityViewModel.getUser().getUid());
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if ( documentSnapshot.exists() )
+                {
+                    int currCals = Integer.parseInt(documentSnapshot.get("currentCalories").toString()) + Integer.parseInt(totalCals);
+                    int currCarbs = Integer.parseInt(documentSnapshot.get("currentCarbs").toString()) + Integer.parseInt(totalFat);
+                    int currFat = Integer.parseInt(documentSnapshot.get("currentFat").toString()) + Integer.parseInt(sodium);
+                    int currProtein = Integer.parseInt(documentSnapshot.get("currentProtein").toString()) + Integer.parseInt(totalCarbs);
+                    int currSodium = Integer.parseInt(documentSnapshot.get("currentSodium").toString()) + Integer.parseInt(totalSugar);
+                    int currSugar = Integer.parseInt(documentSnapshot.get("currentSugar").toString()) + Integer.parseInt(protein);
 
-    private void clearFields() {
-        // Clear EditText fields after saving
-        etFoodName.setText("");
-        etTotalCalories.setText("");
-        etTotalFat.setText("");
-        etSodium.setText("");
-        etTotalCarbs.setText("");
-        etTotalSugar.setText("");
-        etProtein.setText("");
+                    Map<String, Object> macroMap = new HashMap<>();
+                    macroMap.put("currentCalories", currCals);
+                    macroMap.put("currentFat", currFat);
+                    macroMap.put("currentSodium", currSodium);
+                    macroMap.put("currentCarbs", currCarbs);
+                    macroMap.put("currentSugar", currSugar);
+                    macroMap.put("currentProtein", currProtein);
+
+                    userRef.update(macroMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(EnterFoodActivity.this, "Goals Updated!", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(EnterFoodActivity.this, "FAILURE ON DATA SET", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+            }
+        });
     }
 
 }
