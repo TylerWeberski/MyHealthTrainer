@@ -33,10 +33,13 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
     @Override
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         workout Workout = workoutList.get(position);
+        holder.workoutFieldTextView.setText(Workout.getWorkoutField());
         holder.exerciseTextView.setText(Workout.getWorkoutName());
         holder.setsTextView.setText("Sets: " + Workout.getSets());
         holder.repsTextView.setText("Reps: " + Workout.getReps());
         holder.weightTextView.setText("Weight (lbs): " + Workout.getWeight());
+        holder.repGoalTextView.setText(Workout.getRepGoal());
+        holder.setGoalTextView.setText(Workout.getSetGoal());
     }
 
     @Override
@@ -45,14 +48,17 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
     }
 
     public class WorkoutViewHolder extends RecyclerView.ViewHolder {
-        TextView exerciseTextView, setsTextView, repsTextView, weightTextView;
+        TextView workoutFieldTextView,exerciseTextView, setsTextView, repsTextView, weightTextView,repGoalTextView,setGoalTextView;
 
         public WorkoutViewHolder(@NonNull View itemView) {
             super(itemView);
+            workoutFieldTextView = itemView.findViewById(R.id.workoutFieldTextView);
             exerciseTextView = itemView.findViewById(R.id.exerciseTextView);
             setsTextView = itemView.findViewById(R.id.setsTextView);
             repsTextView = itemView.findViewById(R.id.repsTextView);
             weightTextView = itemView.findViewById(R.id.weightTextView);
+            repGoalTextView = itemView.findViewById(R.id.repGoalTextView);
+            setGoalTextView = itemView.findViewById(R.id.setGoalTextView);
         }
     }
 }

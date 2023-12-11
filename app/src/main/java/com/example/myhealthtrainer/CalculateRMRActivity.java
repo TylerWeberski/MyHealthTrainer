@@ -59,14 +59,13 @@ public class CalculateRMRActivity extends AppCompatActivity {
     }
 
     private void calculateRMR() {
-        // Get user input
         String heightStr = editTextHeight.getText().toString();
         String weightStr = editTextWeight.getText().toString();
         String ageStr = editTextAge.getText().toString();
         int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
         int activityLevelPosition = spinnerActivityLevel.getSelectedItemPosition();
 
-        // Perform validation
+
         if (heightStr.isEmpty() || weightStr.isEmpty() || selectedGenderId == -1) {
             Toast.makeText(this, "Please enter all information", Toast.LENGTH_SHORT).show();
             return;
@@ -77,15 +76,15 @@ public class CalculateRMRActivity extends AppCompatActivity {
         double weight = Double.parseDouble(weightStr);
         double age = Double.parseDouble(ageStr);
 
-        // Get selected gender
+
         RadioButton selectedGender = findViewById(selectedGenderId);
         String gender = selectedGender.getText().toString();
 
         double bmr;
         if (gender.equals("Male")) {
-            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age); // 25 is placeholder age
+            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
         } else {
-            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age); // 25 is placeholder age
+            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
         }
 
 
@@ -112,7 +111,6 @@ public class CalculateRMRActivity extends AppCompatActivity {
 
         double rmr = bmr * activityMultiplier;
 
-        // Display the calculated RMR
         textView.setText("Your estimated RMR: is " + rmr + " Please Take in mind that this is an estimate, your Genetics and overall muscle mass also affect RMR");
     }
 }

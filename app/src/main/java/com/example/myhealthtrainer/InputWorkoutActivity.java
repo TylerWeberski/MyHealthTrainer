@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,12 @@ public class InputWorkoutActivity extends AppCompatActivity {
     private EditText editTextSets, editTextReps, editTextWeight, editTextWorkout;
     private String workoutDate;
     private ImageButton backButton;
+    private String numWorkouts;
+    private String workoutField;
+
+    private RadioGroup radioGroupReps;
+    private RadioGroup radioGroupSets;
+    private int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,11 @@ public class InputWorkoutActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        Intent intent = getIntent();
+        numWorkouts = intent.getStringExtra("numWorkoutsStr");
+        workoutField = intent.getStringExtra("workoutField");
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         workoutDate = sdf.format(new Date());
 
@@ -61,6 +74,8 @@ public class InputWorkoutActivity extends AppCompatActivity {
         editTextReps = findViewById(R.id.editTextReps);
         editTextWeight = findViewById(R.id.editTextWeight);
         editTextWorkout = findViewById(R.id.editTextWorkout);
+        radioGroupReps = findViewById(R.id.radioGroupRepGoal);
+        radioGroupSets = findViewById(R.id.radioGroupSetGoal);
         backButton = findViewById(R.id.backButton);
 
         backButton.setOnClickListener(v -> {
@@ -92,20 +107,36 @@ public class InputWorkoutActivity extends AppCompatActivity {
         String reps = editTextReps.getText().toString();
         String weight = editTextWeight.getText().toString();
         String workout = editTextWorkout.getText().toString();
+        int repgoals = radioGroupReps.getCheckedRadioButtonId();
+        int setgoals = radioGroupSets.getCheckedRadioButtonId();
+
+        String repGoalStr, setGoalStr;
+
+        RadioButton selectedReps = findViewById(repgoals);
+        RadioButton selectedSets = findViewById(setgoals);
+
+        repGoalStr = selectedReps.getText().toString();
+        setGoalStr = selectedSets.getText().toString();
+
 
         if (!(sets.matches("[0-9]+") || reps.matches("[0-9]+") || weight.matches("[0-9]+"))){
 
             Toast.makeText(InputWorkoutActivity.this, "Sets,Weight,Reps must be only numbers", Toast.LENGTH_LONG).show();
 
+        } else if (i >= Integer.parseInt(numWorkouts)){
+            finish();
         } else if (!(sets.isEmpty() || reps.isEmpty() || weight.isEmpty() || workout.isEmpty())) {
 
-            workout newWorkout = new workout(workout, weight, reps, sets);
+            workout newWorkout = new workout(workoutField,workout, weight, reps, sets,repGoalStr,setGoalStr);
 
             Map<String, Object> workoutMap = new HashMap<>();
+            workoutMap.put("workoutField",workoutField);
             workoutMap.put("workoutName", workout);
             workoutMap.put("weight", weight);
             workoutMap.put("sets", sets);
             workoutMap.put("reps", reps);
+            workoutMap.put("repGoal",repGoalStr);
+            workoutMap.put("setGoal",setGoalStr);
 
             Object workoutName;
             db.collection("users/" + MainActivityViewModel.getUser().getUid() + "/workouts")
@@ -128,6 +159,7 @@ public class InputWorkoutActivity extends AppCompatActivity {
             editTextReps.setText("");
             editTextWorkout.setText("");
             editTextWeight.setText("");
+            i++;
 
         } else { Toast.makeText(InputWorkoutActivity.this, "Please do not leave a section empty", Toast.LENGTH_LONG).show(); }
     }
