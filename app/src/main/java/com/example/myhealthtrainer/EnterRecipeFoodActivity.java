@@ -11,6 +11,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class EnterRecipeFoodActivity extends AppCompatActivity {
 
     private TextView foodName;
@@ -30,6 +41,7 @@ public class EnterRecipeFoodActivity extends AppCompatActivity {
     private int numCarbs = 0;
     private int numSugar = 0;
     private int numProtein = 0;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +52,8 @@ public class EnterRecipeFoodActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View childView = inflater.inflate(R.layout.activity_enter_recipe_food, frameLayout, false);
         frameLayout.addView(childView);
+
+        db = FirebaseFirestore.getInstance();
 
         foodName = findViewById(R.id.foodName);
         totalCalories = findViewById(R.id.totalCalories);
@@ -69,6 +83,34 @@ public class EnterRecipeFoodActivity extends AppCompatActivity {
         String totalProteinStr = totalProtein.getText().toString().trim();
 
         if(i >= Integer.parseInt(numFoodsStr) - 1){
+
+            Map<String, Object> recipeMap = new HashMap<>();
+            //recipeMap.put("recipeName", recipeName);
+            recipeMap.put("ingredientsList", ingredientsList);
+            recipeMap.put("numCalories", numCalories);
+            recipeMap.put("numFat", numFat);
+            recipeMap.put("numSodium", numSodium);
+            recipeMap.put("numCarbs", numCarbs);
+            recipeMap.put("numSugar", numSugar);
+            recipeMap.put("numProtein", numProtein);
+
+            db.collection("users/" + MainActivityViewModel.getUser().getUid() + "/recipes")
+                    .add(recipeMap)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(EnterRecipeFoodActivity.this, "Food Details Saved", Toast.LENGTH_SHORT).show();
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NotNull Exception e) {
+                            Toast.makeText(EnterRecipeFoodActivity.this, "Failed to save food details", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
             startActivity(new Intent(EnterRecipeFoodActivity.this, EnterRecipeActivity.class));
         }
         else if (!(totalCaloriesStr.matches("[0-9]+") || totalFatStr.matches("[0-9]+") ||
