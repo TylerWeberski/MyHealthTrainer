@@ -28,6 +28,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button recipeButton;
     private Button calculateRMR;
     private Button adviceButton;
+    private Button btnToGraph;
     private TextView txtDashHello;
     private TextView txtGoalProgress;
     private ImageButton btnDeleteAccount;
@@ -84,6 +85,12 @@ public class DashboardActivity extends AppCompatActivity {
 
         });
 
+        btnToGraph.setOnClickListener(v -> {
+            Toast.makeText(DashboardActivity.this, "Going to graph", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(DashboardActivity.this, GraphActivity.class));
+
+        });
+
     }
 
     private void dashInit()
@@ -96,7 +103,6 @@ public class DashboardActivity extends AppCompatActivity {
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
         txtGoalProgress = findViewById(R.id.txtGoalInfo);
         txtDashHello = findViewById(R.id.txtDashGoals);
-        adviceButton = findViewById(R.id.adviceButton);
 
         txtDashHello.setText(MainActivityViewModel.getUser().getDisplayName().toString().split(" ")[0] + "'s Dashboard");
 
