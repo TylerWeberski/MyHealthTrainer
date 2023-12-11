@@ -21,6 +21,7 @@ public class CalculateRMRActivity extends AppCompatActivity {
     private TextView textView;
     private Spinner spinnerActivityLevel;
     private Button buttonCalculateRMR;
+    private ImageButton backButton;
 
 
     @Override
@@ -35,8 +36,11 @@ public class CalculateRMRActivity extends AppCompatActivity {
         buttonCalculateRMR = findViewById(R.id.buttonCalculateRMR);
         editTextAge = findViewById(R.id.editTextAge);
         textView = findViewById(R.id.textView);
+        backButton = findViewById(R.id.backButton);
 
-
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
