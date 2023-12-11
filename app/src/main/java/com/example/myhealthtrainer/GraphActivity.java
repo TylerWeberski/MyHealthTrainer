@@ -78,38 +78,30 @@ public class GraphActivity extends AppCompatActivity {
         });
     }
 
-    // Your method where you have the ArrayList<QueryDocumentSnapshot>
     private void sortDocumentSnapshotsByDate() {
-        // Create a custom Comparator for sorting by the "date" field
         Comparator<QueryDocumentSnapshot> dateComparator = new Comparator<QueryDocumentSnapshot>() {
             @Override
             public int compare(QueryDocumentSnapshot doc1, QueryDocumentSnapshot doc2) {
-                // Assuming the "date" field is a String in Firebase
                 String dateString1 = doc1.getString("date");
                 String dateString2 = doc2.getString("date");
 
-                // Parse the strings to Date objects for comparison
                 LocalDateTime date1 = parseDate(dateString1);
                 LocalDateTime date2 = parseDate(dateString2);
 
-                // Compare the Dates
                 if (date1 != null && date2 != null) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         return date1.compareTo(date2);
                     }
                 } else {
-                    // Handle the case where one or both dates are null
-                    return 0; // or any other appropriate value
+                    return 0;
                 }
                 return 0;
             }
         };
 
-        // Sort the ArrayList using the custom Comparator
-        Collections.sort(docs, dateComparator);
+        docs.sort(dateComparator);
     }
 
-    // Helper method to parse a date string to a Date object
     private LocalDateTime parseDate(String dateString) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
