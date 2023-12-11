@@ -45,6 +45,9 @@
         <activity
             android:name=".CalculateRMRActivity"
             android:exported="false"/>
+        <activity
+            android:name=".RecipeListActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

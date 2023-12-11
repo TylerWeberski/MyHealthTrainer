@@ -1,11 +1,15 @@
 package com.example.myhealthtrainer;
+
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myhealthtrainer.adapter.RecipeAdapter;
 import com.example.myhealthtrainer.adapter.WorkoutAdapter;
+import com.example.myhealthtrainer.model.recipe;
 import com.example.myhealthtrainer.model.workout;
 import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,49 +22,52 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkoutHistoryActivity extends AppCompatActivity {
-
+public class RecipeListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private WorkoutAdapter workoutAdapter;
-    private List<workout> workoutList;
+    private RecipeAdapter recipeAdapter;
+    private List<recipe> recipeList;
 
     private FirebaseFirestore firestore;
-    private CollectionReference workoutCollection;
+    private CollectionReference recipeCollection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_history);
+        setContentView(R.layout.activity_recipe_list);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        workoutList = new ArrayList<>();
-        workoutAdapter = new WorkoutAdapter(this, workoutList);
-        recyclerView.setAdapter(workoutAdapter);
+        recipeList = new ArrayList<>();
+        recipeAdapter = new RecipeAdapter(this, recipeList);
+        recyclerView.setAdapter(recipeAdapter);
 
         firestore = FirebaseFirestore.getInstance();
-        workoutCollection = firestore.collection("users/" + MainActivityViewModel.getUser().getUid() + "/workouts");
+        recipeCollection = firestore.collection("users/" + MainActivityViewModel.getUser().getUid() + "/recipes");
 
         loadDataFromFirestore();
     }
 
     private void loadDataFromFirestore() {
-        workoutCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        recipeCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String exercise = document.getString("workoutName");
-                        String sets = document.getString("sets");
-                        String reps = document.getString("reps");
-                        String weight = document.getString("weight");
+                        String recipeName = document.getString("recipeName");
+                        String ingredients = document.getString("ingredientsList");
+                        String calories = document.getString("numCaloires");
+                        String carbs = document.getString("numCarbs");
+                        String fat = document.getString("numFat");
+                        String protein = document.getString("numProtein");
+                        String sodium = document.getString("numSodium");
+                        String sugar = document.getString("numSugar");
 
-                        workout Workout = new workout(exercise, weight, reps, sets);
-                        workoutList.add(Workout);
+                        recipe Recipe = new recipe(recipeName, ingredients, Integer.parseInt(calories), Integer.parseInt(carbs), Integer.parseInt(fat), Integer.parseInt(protein), Integer.parseInt(sodium), Integer.parseInt(sugar));
+                        recipeList.add(Recipe);
                     }
-                    workoutAdapter.notifyDataSetChanged();
+                    recipeAdapter.notifyDataSetChanged();
                 } else {
                     // Handle errors
                 }

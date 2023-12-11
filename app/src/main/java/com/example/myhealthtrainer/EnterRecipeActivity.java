@@ -53,6 +53,13 @@ public class EnterRecipeActivity extends AppCompatActivity {
                 saveRecipeDetails();
             }
         });
+
+        viewRecipes.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(EnterRecipeActivity.this, RecipeListActivity.class));
+            }
+        });
     }
     private void saveRecipeDetails(){
         String recipeNameStr = recipeName.getText().toString().trim();
