@@ -58,13 +58,13 @@ public class RecipeListActivity extends AppCompatActivity {
                         String recipeName = document.getString("recipeName");
                         String ingredients = document.getString("ingredientsList");
                         String calories = document.getString("numCaloires");
-                        String carbs = document.getString("numCarbs");
-                        String fat = document.getString("numFat");
-                        String protein = document.getString("numProtein");
-                        String sodium = document.getString("numSodium");
-                        String sugar = document.getString("numSugar");
+                        String carbs = String.valueOf(document.getLong("numCarbs"));
+                        String fat = String.valueOf(document.getLong("numFat"));
+                        String protein = String.valueOf(document.getLong("numProtein"));
+                        String sodium = String.valueOf(document.getLong("numSodium"));
+                        String sugar = String.valueOf(document.getLong("numSugar"));
 
-                        recipe Recipe = new recipe(recipeName, ingredients, Integer.parseInt(calories), Integer.parseInt(carbs), Integer.parseInt(fat), Integer.parseInt(protein), Integer.parseInt(sodium), Integer.parseInt(sugar));
+                        recipe Recipe = new recipe(recipeName, ingredients, calories, carbs, fat, protein, sodium, sugar);
                         recipeList.add(Recipe);
                     }
                     recipeAdapter.notifyDataSetChanged();

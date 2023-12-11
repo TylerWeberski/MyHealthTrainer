@@ -3,14 +3,14 @@ package com.example.myhealthtrainer.model;
 public class recipe {
     private String recipeName;
     private String ingredients;
-    private int calories;
-    private int carbs;
-    private int fat;
-    private int protein;
-    private int sodium;
-    private int sugar;
+    private String calories;
+    private String carbs;
+    private String fat;
+    private String protein;
+    private String sodium;
+    private String sugar;
 
-    public recipe(String recipeName, String ingredients, int calories, int carbs, int fat, int protein, int sodium, int sugar){
+    public recipe(String recipeName, String ingredients, String calories, String carbs, String fat, String protein, String sodium, String sugar){
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.calories = calories;
@@ -37,51 +37,51 @@ public class recipe {
         this.ingredients = ingredients;
     }
 
-    public int getCalories() {
+    public String getCalories() {
         return calories;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(String calories) {
         this.calories = calories;
     }
 
-    public int getCarbs() {
+    public String getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(int carbs) {
+    public void setCarbs(String carbs) {
         this.carbs = carbs;
     }
 
-    public int getFat() {
+    public String getFat() {
         return fat;
     }
 
-    public void setFat(int fat) {
+    public void setFat(String fat) {
         this.fat = fat;
     }
 
-    public int getProtein() {
+    public String getProtein() {
         return protein;
     }
 
-    public void setProtein(int protein) {
+    public void setProtein(String protein) {
         this.protein = protein;
     }
 
-    public int getSodium() {
+    public String getSodium() {
         return sodium;
     }
 
-    public void setSodium(int sodium) {
+    public void setSodium(String sodium) {
         this.sodium = sodium;
     }
 
-    public int getSugar() {
+    public String getSugar() {
         return sugar;
     }
 
-    public void setSugar(int sugar) {
+    public void setSugar(String sugar) {
         this.sugar = sugar;
     }
 }

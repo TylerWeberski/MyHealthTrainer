@@ -27,6 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button macrosButton;
     private Button recipeButton;
     private Button calculateRMR;
+    private Button adviceButton;
     private TextView txtDashHello;
     private TextView txtGoalProgress;
     private ImageButton btnDeleteAccount;
@@ -67,6 +68,10 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(DashboardActivity.this, "Going to RMR calculator ", Toast.LENGTH_LONG).show();
             startActivity(new Intent(DashboardActivity.this, CalculateRMRActivity.class));
         });
+        adviceButton.setOnClickListener(v ->{
+            Toast.makeText(DashboardActivity.this, "Going to Advice page", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(DashboardActivity.this, AdviceActivity.class));
+        });
 
         btnDeleteAccount.setOnClickListener(v ->{
             showConfirmationDialog();
@@ -91,6 +96,7 @@ public class DashboardActivity extends AppCompatActivity {
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
         txtGoalProgress = findViewById(R.id.txtGoalInfo);
         txtDashHello = findViewById(R.id.txtDashGoals);
+        adviceButton = findViewById(R.id.adviceButton);
 
         txtDashHello.setText(MainActivityViewModel.getUser().getDisplayName().toString().split(" ")[0] + "'s Dashboard");
 
