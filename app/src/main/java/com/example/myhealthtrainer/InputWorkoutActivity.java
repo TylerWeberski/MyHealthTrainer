@@ -39,6 +39,9 @@ public class InputWorkoutActivity extends AppCompatActivity {
     private EditText editTextSets, editTextReps, editTextWeight, editTextWorkout;
     private String workoutDate;
     private ImageButton backButton;
+    private String numWorkouts;
+    private String workoutField;
+    private int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,11 @@ public class InputWorkoutActivity extends AppCompatActivity {
         frameLayout.addView(childView);
 
         db = FirebaseFirestore.getInstance();
+
+        Intent intent = getIntent();
+        numWorkouts = intent.getStringExtra("numWorkoutsStr");
+        workoutField = intent.getStringExtra("workoutField");
+
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         workoutDate = sdf.format(new Date());
@@ -92,7 +100,9 @@ public class InputWorkoutActivity extends AppCompatActivity {
         String weight = editTextWeight.getText().toString();
         String workout = editTextWorkout.getText().toString();
 
-        if (!(sets.matches("[0-9]+") || reps.matches("[0-9]+") || weight.matches("[0-9]+"))){
+        if(i >= Integer.parseInt(numWorkouts) - 1){
+
+        }else if (!(sets.matches("[0-9]+") || reps.matches("[0-9]+") || weight.matches("[0-9]+"))){
 
             Toast.makeText(InputWorkoutActivity.this, "Sets,Weight,Reps must be only numbers", Toast.LENGTH_LONG).show();
 
