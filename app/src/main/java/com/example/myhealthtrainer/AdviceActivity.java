@@ -2,6 +2,7 @@ package com.example.myhealthtrainer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.ViewGroup.LayoutParams;
 public class AdviceActivity extends AppCompatActivity {
 
     private Button sleepButton, workoutButton, nutritionButton;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,11 @@ public class AdviceActivity extends AppCompatActivity {
         sleepButton = findViewById(R.id.sleepButton);
         workoutButton = findViewById(R.id.workoutButton);
         nutritionButton = findViewById(R.id.nutritionButton);
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
 
         sleepButton.setOnClickListener(new View.OnClickListener() {
             @Override
