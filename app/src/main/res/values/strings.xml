@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MyHealth trainer</string>
+    <string name="sleep_advice">Get 7-9 hours of quality sleep each night.</string>
+    <string name="workout_advice">Engage in at least 30 minutes of moderate exercise most days.</string>
+    <string name="nutrition_advice">Eat a balanced diet with plenty of fruits, vegetables, and whole grains.</string>
 </resources>
