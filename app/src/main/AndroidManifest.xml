@@ -49,7 +49,12 @@
             android:name=".CalculateRMRActivity"
             android:exported="false"/>
         <activity
+            android:name=".RecipeListActivity"
+            android:exported="false"/>
+        <activity
             android:name=".EnterWorkoutFieldActivity"
+            android:exported="false"/>
+        <activity android:name=".AdviceActivity"
             android:exported="false"/>
     </application>
 

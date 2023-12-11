@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MyHealth trainer</string>
+    <string name="sleep_advice">
+        Ensure you establish a consistent sleep schedule by going to bed and waking up at the same time every day. Create a relaxing bedtime routine, and make your sleep environment comfortable and conducive to rest. Aim for 7-9 hours of quality sleep each night to support overall well-being.
+    </string>
+    <string name="workout_advice">
+        Incorporate a mix of cardiovascular exercises, strength training, and flexibility exercises into your fitness routine. Aim for at least 150 minutes of moderate-intensity aerobic activity or 75 minutes of vigorous-intensity activity per week, along with muscle-strengthening activities on two or more days per week. Find activities you enjoy to make exercise a sustainable part of your lifestyle.
+    </string>
+    <string name="nutrition_advice">
+        Build a balanced and varied diet that includes a variety of fruits, vegetables, whole grains, lean proteins, and healthy fats. Limit the intake of processed foods, sugary drinks, and excessive amounts of salt. Stay hydrated by drinking an adequate amount of water throughout the day. Pay attention to portion sizes and listen to your body\'s hunger and fullness cues for mindful eating.
+    </string>
 </resources>
