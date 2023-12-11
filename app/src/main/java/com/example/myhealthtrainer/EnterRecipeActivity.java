@@ -20,6 +20,7 @@ public class EnterRecipeActivity extends AppCompatActivity {
     private Button viewRecipes;
     private TextView recipeName;
     private TextView numFoods;
+    private ImageButton backButton;
     private FirebaseFirestore db;
 
 
@@ -37,6 +38,12 @@ public class EnterRecipeActivity extends AppCompatActivity {
         viewRecipes = findViewById(R.id.viewRecipes);
         recipeName = findViewById(R.id.recipeName);
         numFoods = findViewById(R.id.numFoods);
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
+
 
         db = FirebaseFirestore.getInstance();
 

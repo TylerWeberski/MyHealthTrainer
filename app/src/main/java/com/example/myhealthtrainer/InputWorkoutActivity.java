@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myhealthtrainer.model.workout;
+import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
@@ -117,7 +118,7 @@ public class InputWorkoutActivity extends AppCompatActivity {
             workoutMap.put("reps", reps);
 
             Object workoutName;
-            db.collection("workout")
+            db.collection("users/" + MainActivityViewModel.getUser().getUid() + "/workouts")
                     .add(workoutMap)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
