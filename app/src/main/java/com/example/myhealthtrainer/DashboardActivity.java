@@ -27,6 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button macrosButton;
     private Button recipeButton;
     private Button calculateRMR;
+    private Button btnToGraph;
     private TextView txtDashHello;
     private TextView txtGoalProgress;
     private ImageButton btnDeleteAccount;
@@ -46,6 +47,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         dashInit();
         deleteAccountTracker = 0;
+
 
        workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
@@ -79,6 +81,12 @@ public class DashboardActivity extends AppCompatActivity {
 
         });
 
+        btnToGraph.setOnClickListener(v -> {
+            Toast.makeText(DashboardActivity.this, "Going to graph", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(DashboardActivity.this, GraphActivity.class));
+
+        });
+
     }
 
     private void dashInit()
@@ -89,6 +97,7 @@ public class DashboardActivity extends AppCompatActivity {
         recipeButton = findViewById(R.id.recipeButton);
         calculateRMR = findViewById(R.id.buttonCalculateRMR);
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
+        btnToGraph = findViewById(R.id.btnGraphActivity);
         txtGoalProgress = findViewById(R.id.txtGoalInfo);
         txtDashHello = findViewById(R.id.txtDashGoals);
 
