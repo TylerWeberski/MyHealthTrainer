@@ -15,6 +15,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -23,9 +27,12 @@ public class DashboardActivity extends AppCompatActivity {
     private Button macrosButton;
     private Button recipeButton;
     private Button calculateRMR;
+    private Button btnToGraph;
     private TextView txtDashHello;
+    private TextView txtGoalProgress;
     private ImageButton btnDeleteAccount;
     private int deleteAccountTracker;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +43,11 @@ public class DashboardActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View childView = inflater.inflate(R.layout.activity_dashboard, frameLayout, false);
         frameLayout.addView(childView);
+        db = FirebaseFirestore.getInstance();
 
         dashInit();
         deleteAccountTracker = 0;
+
 
        workoutTracker.setOnClickListener(v -> {
             Toast.makeText(DashboardActivity.this, "Going to workout", Toast.LENGTH_LONG).show();
@@ -72,6 +81,12 @@ public class DashboardActivity extends AppCompatActivity {
 
         });
 
+        btnToGraph.setOnClickListener(v -> {
+            Toast.makeText(DashboardActivity.this, "Going to graph", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(DashboardActivity.this, GraphActivity.class));
+
+        });
+
     }
 
     private void dashInit()
@@ -82,10 +97,13 @@ public class DashboardActivity extends AppCompatActivity {
         recipeButton = findViewById(R.id.recipeButton);
         calculateRMR = findViewById(R.id.buttonCalculateRMR);
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
-
+        btnToGraph = findViewById(R.id.btnGraphActivity);
+        txtGoalProgress = findViewById(R.id.txtGoalInfo);
         txtDashHello = findViewById(R.id.txtDashGoals);
 
         txtDashHello.setText(MainActivityViewModel.getUser().getDisplayName().toString().split(" ")[0] + "'s Dashboard");
+
+        updateGoalProgress();
 
 
     }
@@ -117,6 +135,79 @@ public class DashboardActivity extends AppCompatActivity {
         // Create and show the dialog
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void updateGoalProgress()
+    {
+        DocumentReference userRef = db.collection("users").document(MainActivityViewModel.getUser().getUid());
+        StringBuilder goalBuilder = new StringBuilder();
+        goalBuilder.append(txtGoalProgress.getText().toString()).append("\n\n");
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if ( documentSnapshot.exists() )
+                {
+                    if (Integer.parseInt(documentSnapshot.get("goalCalories").toString()) != 0)
+                    {
+                        goalBuilder.append("Calories: ").append( String.format("%.2f",(Double.parseDouble(documentSnapshot.get("currentCalories").toString()) / Double.parseDouble(documentSnapshot.get("goalCalories").toString())) * 100)).append("%\n");
+                    }
+                    else
+                    {
+                        goalBuilder.append("Calories: 0%\n");
+                    }
+
+                    if (Integer.parseInt(documentSnapshot.get("goalCarbs").toString()) != 0)
+                    {
+                        goalBuilder.append("Carbs: ").append( String.format("%.2f", (Double.parseDouble(documentSnapshot.get("currentCarbs").toString()) / Double.parseDouble(documentSnapshot.get("goalCarbs").toString())) * 100)).append("%\n");
+                    }
+                    else
+                    {
+                        goalBuilder.append("Carbs: 0%\n");
+                    }
+
+                    if (Integer.parseInt(documentSnapshot.get("goalFat").toString()) != 0)
+                    {
+                        goalBuilder.append("Fat: ").append( String.format("%.2f", (Double.parseDouble(documentSnapshot.get("currentFat").toString()) / Double.parseDouble(documentSnapshot.get("goalFat").toString())) * 100)).append("%\n");
+                    }
+                    else
+                    {
+                        goalBuilder.append("Fat: 0%\n");
+                    }
+
+                    if (Integer.parseInt(documentSnapshot.get("goalProtein").toString()) != 0)
+                    {
+                        goalBuilder.append("Protein: ").append( String.format("%.2f", (Double.parseDouble(documentSnapshot.get("currentProtein").toString()) / Double.parseDouble(documentSnapshot.get("goalProtein").toString())) * 100)).append("%\n");
+                    }
+                    else
+                    {
+                        goalBuilder.append("Protein: 0%\n");
+                    }
+
+                    if (Integer.parseInt(documentSnapshot.get("goalSodium").toString()) != 0)
+                    {
+                        goalBuilder.append("Sodium: ").append( String.format("%.2f", (Double.parseDouble(documentSnapshot.get("currentSodium").toString()) / Double.parseDouble(documentSnapshot.get("goalSodium").toString())) * 100)).append("%\n");
+                    }
+                    else
+                    {
+                        goalBuilder.append("Sodium: 0%\n");
+                    }
+
+                    if (Integer.parseInt(documentSnapshot.get("goalSugar").toString()) != 0)
+                    {
+                        goalBuilder.append("Sugar: ").append( String.format("%.2f", (Double.parseDouble(documentSnapshot.get("currentSugar").toString()) / Double.parseDouble(documentSnapshot.get("goalSugar").toString())) * 100)).append("%\n");
+                    }
+                    else
+                    {
+                        goalBuilder.append("Sugar: 0%\n");
+                    }
+
+                    txtGoalProgress.setText(goalBuilder);
+
+
+                }
+
+            }
+        });
     }
 
 
