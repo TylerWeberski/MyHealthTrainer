@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myhealthtrainer.model.food;
+import com.example.myhealthtrainer.viewmodel.MainActivityViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -120,7 +121,7 @@ public class EnterFoodActivity extends AppCompatActivity {
         foodMap.put("sugar", Integer.parseInt(totalSugar));
         foodMap.put("protein", Integer.parseInt(protein));
 
-        db.collection("food")
+        db.collection("users/" + MainActivityViewModel.getUser().getUid() + "/food")
                 .add(foodMap)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
