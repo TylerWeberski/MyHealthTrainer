@@ -1,3 +1,8 @@
+/**
+ * This class, MacrosActivity, manages the user's macro-related goals and current status.
+ * It provides functionality to set, save, and display the user's nutritional goals and current macronutrient values.
+ * The activity interacts with Firebase Firestore to store and retrieve user-specific macro data.
+ */
 package com.example.myhealthtrainer;
 
 import android.app.Activity;
@@ -33,6 +38,11 @@ public class MacrosActivity extends Activity {
     private ImageButton backButton;
     private FirebaseFirestore db;
 
+    /**
+     * Initializes the MacrosActivity and sets up UI components.
+     * Handles button clicks for saving goals, resetting fields, and navigation back.
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +78,10 @@ public class MacrosActivity extends Activity {
 
     }
 
+    /**
+     * Saves the user's nutritional goals to Firestore and updates the database.
+     * Invokes the method to update macronutrient data in Firestore.
+     */
     private void saveGoals() {
         String totalCalories = goalCalories.getText().toString().trim();
         String totalFat = goalFat.getText().toString().trim();
@@ -101,7 +115,9 @@ public class MacrosActivity extends Activity {
         setMacrosDB();
 
     }
-
+    /**
+     * Clears all input fields related to macro goals.
+     */
     private void clearFields() {
         macroGoals.setText("");
         goalCalories.setText("");
@@ -111,7 +127,9 @@ public class MacrosActivity extends Activity {
         goalSugar.setText("");
         goalProtein.setText("");
     }
-
+    /**
+     * Initializes the TextViews, EditTexts, Buttons, and sets initial values for macros.
+     */
     private void initMacros()
     {
         // Finding TextViews from the layout
@@ -151,7 +169,9 @@ public class MacrosActivity extends Activity {
 
         setMacrosDB();
     }
-
+    /**
+     * Retrieves and sets user-specific macro data from Firestore to corresponding UI elements.
+     */
     private void setMacrosDB()
     {
         DocumentReference userRef = db.collection("users").document(MainActivityViewModel.getUser().getUid());
@@ -179,9 +199,4 @@ public class MacrosActivity extends Activity {
             }
         });
     }
-
-    private void setCurrentMacros(){
-
-    }
-
 }

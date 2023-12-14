@@ -1,3 +1,8 @@
+/**
+ * This class represents an activity to enter food details.
+ * It allows users to input information about food items and saves the details to Firebase.
+ * It also updates the user's current macronutrient values based on the entered food details.
+ */
 package com.example.myhealthtrainer;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +36,11 @@ public class EnterFoodActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private ImageButton backButton;
 
+    /**
+     * This method initializes the EnterFoodActivity and sets up the UI components.
+     * It handles button clicks to save food details or navigate back.
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +75,9 @@ public class EnterFoodActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Validates the entered food name and initiates the process to save food details.
+     */
     private void validateAndSaveFood() {
         String foodName = etFoodName.getText().toString().trim();
 
@@ -76,7 +89,10 @@ public class EnterFoodActivity extends AppCompatActivity {
             saveFood();
         }
     }
-  
+    /**
+     * Saves the entered food details to Firebase Firestore.
+     * Also updates the user's macronutrient values based on the entered food details.
+     */
     private void saveFood() {
         String foodName = etFoodName.getText().toString().trim();
         String totalCalories = etTotalCalories.getText().toString().trim();
@@ -139,7 +155,15 @@ public class EnterFoodActivity extends AppCompatActivity {
 
 
     }
-
+    /**
+     * Updates the user's macronutrient values in the Firestore database based on the entered food details.
+     * @param totalCals    Total calories of the food.
+     * @param totalFat     Total fat content of the food.
+     * @param sodium       Sodium content of the food.
+     * @param totalCarbs   Total carbohydrates content of the food.
+     * @param totalSugar   Total sugar content of the food.
+     * @param protein      Protein content of the food.
+     */
     public void saveMacros(String totalCals, String totalFat, String sodium, String totalCarbs, String totalSugar, String protein){
         DocumentReference userRef = db.collection("users").document(MainActivityViewModel.getUser().getUid());
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
