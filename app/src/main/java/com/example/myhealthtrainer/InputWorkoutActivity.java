@@ -34,8 +34,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
-
+/**
+ * @author  Ricky Smith
+ *
+ * InputWorkoutActivity class is responsible for managing the user interface
+ * to input and save workout details, such as sets, reps, weight, and workout name.
+ */
 public class InputWorkoutActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
@@ -85,6 +89,9 @@ public class InputWorkoutActivity extends AppCompatActivity {
 
         Button buttonSave = findViewById(R.id.buttonSave);
         Button workoutHistoryButton = findViewById(R.id.workoutHistory);
+        /**
+         * Handles the onClick event for the "Back" button, finishing the current activity.
+         */
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +99,10 @@ public class InputWorkoutActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Handles the onClick event for the "Save Workout" button, initiating the process
+         * to save workout details or displaying appropriate error messages.
+         */
         workoutHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +112,10 @@ public class InputWorkoutActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Saves workout details by extracting input from UI components, validating the input,
+     * and storing the details in the Firebase Firestore database.
+     */
     private void saveWorkout() {
 
         String sets = editTextSets.getText().toString();

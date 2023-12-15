@@ -21,6 +21,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Ricky Smith
+ * WorkoutHistoryActivity class is responsible for displaying the workout history
+ * based on various workout types, such as Push, Pull, Arms, Legs, Core, or All.
+ */
 public class WorkoutHistoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -58,6 +63,12 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Handles the change in workout type selection in the radio group and triggers
+     * the appropriate data loading based on the selected workout type.
+     *
+     * @param checkedId The ID of the selected radio button.
+     */
     private void handleWorkoutFilterChange(int checkedId) {
         String selectedWorkoutType = getSelectedWorkoutType(checkedId);
 
@@ -81,11 +92,20 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
             loadFilteredDataFromFirestore("Core (Abs/Obliques/Diaphragm)");
         }
     }
+    /**
+     * Retrieves the text of the selected workout type from the radio group.
+     *
+     * @param checkedId The ID of the selected radio button.
+     * @return The text of the selected workout type.
+     */
     private String getSelectedWorkoutType(int checkedId) {
         RadioButton selectedRadioButton = findViewById(checkedId);
         return selectedRadioButton != null ? selectedRadioButton.getText().toString() : "";
     }
 
+    /**
+     * Loads all workout data from Firestore and updates the RecyclerView adapter.
+     */
     private void loadDataFromFirestore() {
         workoutCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -113,6 +133,12 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Loads filtered workout data from Firestore based on the specified workout type
+     * and updates the RecyclerView adapter.
+     *
+     * @param workoutType The type of workout to filter.
+     */
     private void loadFilteredDataFromFirestore(String workoutType) {
         firestore.collection("users/" + MainActivityViewModel.getUser().getUid() + "/workouts")
                 .whereEqualTo("workoutField", workoutType)

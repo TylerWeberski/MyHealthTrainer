@@ -15,6 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * @author  Ricky Smith
+ *
+ * EnterWorkoutFieldActivity class is responsible for managing the user interface
+ * to enter details about a workout field, such as the type of workout and the
+ * number of workouts to perform.
+ */
 public class EnterWorkoutFieldActivity extends AppCompatActivity {
 
     private Button saveWorkout;
@@ -23,7 +30,12 @@ public class EnterWorkoutFieldActivity extends AppCompatActivity {
     private TextView numWorkouts;
     private FirebaseFirestore db;
 
-
+    /**
+     * Called when the activity is first created. Responsible for initializing UI components,
+     * setting up event listeners, and configuring the Firebase Firestore instance.
+     *
+     * @param savedInstanceState The saved state of the activity, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -41,6 +53,10 @@ public class EnterWorkoutFieldActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+         /**
+         * Handles the onClick event for the "View Workouts" button, navigating to the
+         * WorkoutHistoryActivity to display previously entered workout details.
+         */
         viewWorkout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -49,6 +65,11 @@ public class EnterWorkoutFieldActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Handles the onClick event for the "Save Workout" button, validating user input
+         * and initiating the process to save workout details or displaying appropriate
+         * error messages.
+         */
         saveWorkout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -56,6 +77,12 @@ public class EnterWorkoutFieldActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Saves workout details by extracting the workout name and the number of workouts
+     * from the UI. Validates the input and navigates to the InputWorkoutActivity to
+     * enter workout details or displays error messages.
+     */
     private void saveWorkoutDetails(){
         String workoutNameStr = workoutField.getSelectedItem().toString();
         String numWorkoutsStr = numWorkouts.getText().toString().trim();

@@ -1,7 +1,9 @@
+
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
 }
+
 
 android {
     namespace = "com.example.myhealthtrainer"
@@ -28,6 +30,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
 
 dependencies {
 
