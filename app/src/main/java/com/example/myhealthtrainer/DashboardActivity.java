@@ -138,7 +138,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        // Create and show the dialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }

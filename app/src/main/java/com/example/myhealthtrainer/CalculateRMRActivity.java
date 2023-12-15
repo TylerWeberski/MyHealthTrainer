@@ -14,6 +14,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * @author Ricky Smith
+ *
+ * CalculateRMRActivity class is responsible for handling the logic to calculate
+ * the Resting Metabolic Rate (RMR) based on user input such as height, weight, age,
+ * gender, and activity level.
+ */
 public class CalculateRMRActivity extends AppCompatActivity {
 
     private EditText editTextHeight, editTextWeight, editTextAge;
@@ -23,7 +30,12 @@ public class CalculateRMRActivity extends AppCompatActivity {
     private Button buttonCalculateRMR;
     private ImageButton backButton;
 
-
+    /**
+     * Called when the activity is first created. Responsible for initializing UI components,
+     * setting up event listeners, and configuring the spinner adapter.
+     *
+     * @param savedInstanceState The saved state of the activity, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +70,10 @@ public class CalculateRMRActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Calculates the Resting Metabolic Rate (RMR) based on user input such as height, weight, age,
+     * gender, and activity level. Displays the result in the textView.
+     */
     private void calculateRMR() {
         String heightStr = editTextHeight.getText().toString();
         String weightStr = editTextWeight.getText().toString();
