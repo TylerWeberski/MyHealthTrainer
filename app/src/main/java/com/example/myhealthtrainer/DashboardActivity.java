@@ -20,6 +20,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * @author  Mike Gradle
+ *
+ * Class for the users dashboard
+ */
 public class DashboardActivity extends AppCompatActivity {
 
     private Button workoutTracker;
@@ -35,6 +40,10 @@ public class DashboardActivity extends AppCompatActivity {
     private int deleteAccountTracker;
     private FirebaseFirestore db;
 
+    /**
+     * Sets the buttons and their functioanllities
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +103,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Init for the dashboard
+     */
     private void dashInit()
     {
         workoutTracker = findViewById(R.id.workoutButton);
@@ -114,6 +126,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Dialog box with a confirmation if the user wants to delete their account
+     */
     private void showConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmation");
@@ -142,6 +157,10 @@ public class DashboardActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Method to update the user's progress on their macros
+     * Takes data from DB and compares the percentage
+     */
     private void updateGoalProgress()
     {
         DocumentReference userRef = db.collection("users").document(MainActivityViewModel.getUser().getUid());

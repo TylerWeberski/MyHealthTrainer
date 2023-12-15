@@ -16,7 +16,17 @@ public class MainActivityViewModel extends ViewModel {
     public boolean getIsSigningIn() {
         return mIsSigningIn;
     }
+
+    /**
+     * To grab a user and their info
+     * @return FirebaseUser
+     */
     public static FirebaseUser getUser() { return mUser; }
+
+    /**
+     * Sets the user upon sign in
+     * @param user FirebaseUser
+     */
     public static void setUser(FirebaseUser user) { mUser = user; }
 
     public void setIsSigningIn(boolean mIsSigningIn) {
