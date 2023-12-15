@@ -31,6 +31,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The activity where the app starts
+ * A user can login or create an account
+ */
 public class MainActivity extends AppCompatActivity {
 
     private EditText etEmail;
@@ -88,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sign in method for Firebase
+     * Authenticates that the user is already in the DB
+     * Checks to make sure the passwords match up
+     *
+     * @param email Users email
+     * @param password Users password
+     */
     private void signInFB(String email, String password)
     {
         mAuth.signInWithEmailAndPassword(email, password)
@@ -118,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Needed Firebase stuff
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -133,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
             mAdapter.startListening();
         }
     }
+
+    /**
+     * Decides if a user needs to make an account or can already signin
+     * @return Bring user to create account screen if they do not have an account
+     */
     private boolean shouldStartSignIn() {
         return (!mViewModel.getIsSigningIn() && FirebaseUtil.getAuth().getCurrentUser() == null);
     }
@@ -149,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
         mViewModel.setIsSigningIn(true);
     }
 
+    /**
+     * Sets the users inital documents with base values if they dont have some
+     * already in the DB
+     */
     private void setUserDocument()
     {
         DocumentReference userRef = db.collection("users").document(user.getUid());
@@ -194,6 +218,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * set inital screen values
+     */
     private void init()
     {
         etEmail = findViewById(R.id.etEmail);

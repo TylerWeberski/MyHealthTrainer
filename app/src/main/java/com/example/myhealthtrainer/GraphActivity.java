@@ -28,6 +28,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * Class to create the graph to show user progress
+ */
 public class GraphActivity extends AppCompatActivity {
 
     LineGraphSeries<DataPoint> series;
@@ -43,6 +46,10 @@ public class GraphActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sets up the graph, grabs data from the DB and places it into the graph
+     * Currently only works for a specific account and only for bench, did not have time to finish this
+     */
     private void initGraph()
     {
         CollectionReference userRef = db.collection("users/" + MainActivityViewModel.getUser().getUid() + "/workouts");
@@ -78,6 +85,10 @@ public class GraphActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Custom comparator that sorts by date
+     * Date will be on the X-Axis of the graph
+     */
     private void sortDocumentSnapshotsByDate() {
         Comparator<QueryDocumentSnapshot> dateComparator = new Comparator<QueryDocumentSnapshot>() {
             @Override
@@ -102,6 +113,13 @@ public class GraphActivity extends AppCompatActivity {
         docs.sort(dateComparator);
     }
 
+    /**
+     * Takes in a string and returns a LocalDataTime object
+     * Easier for sorting
+     *
+     * @param dateString String containing the Date
+     * @return A more standardized date and time formula
+     */
     private LocalDateTime parseDate(String dateString) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
